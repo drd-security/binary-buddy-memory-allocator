@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mman.h>
-#include "../include/binary_buddy.h"
+#include "binary_buddy.h"
 
 /*
 * Initalize the structures needed for the buddy allocator.
@@ -51,7 +51,7 @@ void* balloc(size_t size) {
     // Calculate the target size (T), which must be a power of 2 >= max(size, M)
     size_t T = MIN_ALLOC_SIZE;
     if (size > MIN_ALLOC_SIZE) {
-        // Use a native CPU instruction to round up to the next power of two in O(1).
+        // Utilisation d'une instruction CPU native O(1) pour remplacer la boucle while
         T = (size_t)1 << (64 - __builtin_clzll((unsigned long long)(size - 1)));
     }
     
